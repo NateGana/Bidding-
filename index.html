@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>LOGI-BID | Open Bidding & Logistics Management</title>
+<style>
+:root{--bg:#f1f4f3;--cd:#fff;--tx:#14231f;--mu:#62736e;--bd:#dce4e1;--pr:#0b7a75;--sb:#0d2b2a;--g:#137a45;--a:#b56a00;--r:#c73535;--b:#1f5fbf}
+[data-theme=dark]{--bg:#0a1514;--cd:#11201f;--tx:#e3efec;--mu:#8fa8a2;--bd:#1f3532;--sb:#061211;--pr:#2bb5ad;--g:#3fcf85;--a:#f0a63a;--r:#f06a6a;--b:#6aa2ff}
+*{box-sizing:border-box}body{margin:0;font:14px/1.5 "Segoe UI",system-ui,sans-serif;background:var(--bg);color:var(--tx);display:flex;min-height:100vh}
+aside{width:232px;background:var(--sb);color:#b9cfca;display:flex;flex-direction:column;padding:16px 10px;position:sticky;top:0;height:100vh;flex-shrink:0;z-index:40}
+.logo{font-size:20px;font-weight:800;color:#fff;padding:0 10px}.logo small{display:block;font-size:10.5px;font-weight:400;color:#7fa39d}
+nav{margin-top:18px;flex:1;overflow:auto}nav a{display:block;padding:8px 12px;border-radius:6px;color:inherit;cursor:pointer;margin-bottom:2px}
+nav a:hover{background:#ffffff14}nav a.on{background:var(--pr);color:#fff;font-weight:600}
+.side-b{font-size:12px;padding:10px;border-top:1px solid #ffffff22}.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px;background:#3fcf85}.off .dot{background:#f06a6a}
+main{flex:1;min-width:0}header{display:flex;align-items:center;gap:12px;padding:12px 24px;background:var(--cd);border-bottom:1px solid var(--bd);position:sticky;top:0;z-index:30}
+header h2{margin:0;font-size:18px;flex:1}.proto{font-size:11px;color:var(--mu)}#burger{display:none}
+#c{padding:22px 24px;max-width:1300px}
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(210px,1fr))}.g2{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+.card{background:var(--cd);border:1px solid var(--bd);border-radius:8px;padding:16px}.card h3{margin:0 0 10px;font-size:15px}
+.stat b{display:block;font-size:26px;line-height:1.1}.stat span{color:var(--mu);font-size:12.5px}
+.btn{background:var(--pr);color:#fff;border:0;padding:7px 13px;border-radius:6px;cursor:pointer;font:inherit;font-weight:600}.btn:hover{filter:brightness(1.1)}
+.btn.g{background:transparent;color:var(--tx);border:1px solid var(--bd)}.btn.s{padding:3px 9px;font-size:12px}.btn.r{background:var(--r)}.btn:disabled{opacity:.4;cursor:not-allowed}
+.bd{display:inline-block;padding:1px 9px;border-radius:99px;font-size:11.5px;font-weight:600;border:1px solid currentColor;white-space:nowrap}
+.bd.g{color:var(--g)}.bd.a{color:var(--a)}.bd.b{color:var(--b)}.bd.r{color:var(--r)}
+.tw{overflow-x:auto}table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--bd);white-space:nowrap}th{font-size:12px;color:var(--mu);font-weight:600}
+.mu{color:var(--mu)}.tools{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}.tools .sp{flex:1}
+input,select,textarea{font:inherit;padding:7px 9px;border:1px solid var(--bd);border-radius:6px;background:var(--cd);color:var(--tx);width:100%}.tools input,.tools select{width:auto}
+label{display:block;margin-bottom:9px;font-size:12.5px;color:var(--mu)}
+.sot{font-size:11.5px;color:var(--pr);background:color-mix(in srgb,var(--pr) 10%,transparent);padding:2px 8px;border-radius:4px;display:inline-block;margin:4px 0}
+.ov{position:fixed;inset:0;background:#000a;display:none;align-items:flex-start;justify-content:center;overflow:auto;padding:30px 12px;z-index:100}.ov.on{display:flex}
+.md{background:var(--cd);border-radius:10px;padding:22px;width:100%;max-width:640px}.md h3{margin-top:0}.act{display:flex;gap:8px;justify-content:flex-end;margin-top:12px;flex-wrap:wrap}
+#toasts{position:fixed;right:16px;bottom:16px;z-index:200}.t{background:var(--sb);color:#fff;padding:10px 16px;border-radius:6px;margin-top:8px;border-left:4px solid var(--pr);box-shadow:0 4px 14px #0005}
+.wf{display:flex;flex-wrap:wrap;gap:6px}.wf span{background:var(--bg);border:1px solid var(--bd);border-radius:6px;padding:4px 10px;font-size:12px}.wf i{color:var(--mu);font-style:normal}
+.bar{display:flex;align-items:center;gap:8px;margin:6px 0;font-size:12px}.bar div{height:14px;background:var(--pr);border-radius:3px}
+ul.l{margin:0;padding-left:18px}li.lg{list-style:none;padding:8px 0;border-bottom:1px solid var(--bd)}ul.l.p{padding:0}
+@media(max-width:800px){aside{position:fixed;left:-250px;transition:left .2s}aside.open{left:0}#burger{display:block}#c{padding:14px}}
+</style></head><body>
+<aside id="sb"><div class="logo">LOGI-BID<small>Open Bidding & Logistics Management</small></div><nav id="nav"></nav>
+<div class="side-b"><a class="mu" style="cursor:pointer;color:#b9cfca" onclick="go('profile')">▣ Company Profile</a><div id="net" style="margin-top:8px"><span class="dot"></span><b id="nt">ONLINE</b></div><div id="nx" style="font-size:11px;margin-top:2px;color:#7fa39d"></div></div></aside>
+<main><header><button class="btn g" id="burger" onclick="$('sb').classList.toggle('open')">☰</button><h2 id="ttl"></h2><span class="proto">Prototype / Demonstration System</span><button class="btn g s" onclick="theme()">◐ Theme</button></header><div id="c"></div></main>
+<div class="ov" id="ov" onclick="if(event.target==this)closeM()"><div class="md" id="md"></div></div><div id="toasts"></div>
+<script>
+/* ===== DATA (seed) ===== */
+const ago=n=>Date.now()-n*6e4,M=(k,a)=>a.map(r=>Object.fromEntries(k.map((x,i)=>[x,r[i]])));
+const seed=()=>({theme:'light',
+co:{name:'Meridian Logistics Corp.',desc:'Full-service logistics and digital solutions provider serving Metro Manila, Visayas and Mindanao.',email:'hello@meridianlogistics.ph',phone:'+63 2 8555 0142',addr:'27F Bonifacio High Street, Taguig City, Philippines',web:'www.meridianlogistics.ph'},
+projects:M(['id','name','client','budget','deadline','status','desc','reqs','sku','qty'],[
+[1,'Legacy Logistics Management System Refactoring','ABC Logistics Corporation',6e6,'2026-12-15','Open','The client is seeking a qualified technology provider to refactor an existing legacy logistics management system into a modern, maintainable, scalable solution.',['Legacy code analysis','System architecture review','Code refactoring','Database optimization','Security improvements','Performance optimization','Documentation','Testing','Deployment planning'],'IT-001',5],
+[2,'Warehouse Inventory Management System','NorthStar Warehousing',25e5,'2026-11-20','Open','Real-time warehouse inventory tracking with barcode scanning and reorder alerts.',['Barcode integration','Stock ledger','Reorder alerts','Reports'],'SCN-004',4],
+[3,'Fleet Tracking & Delivery Monitoring System','Prime Freight Services',32e5,'2026-10-10','Open','GPS-based fleet tracking with live delivery status for dispatchers and clients.',['GPS integration','Dispatcher dashboard','Driver mobile app','Delivery proof'],'GPS-005',3],
+[4,'Logistics Customer Portal Development','Metro Distribution Inc.',18e5,'2026-11-05','Closed','Client portal for booking, tracking and invoicing.',['Booking module','Tracking page','Invoice history'],'IT-001',2],
+[5,'Last-Mile Delivery App','Metro Distribution Inc.',9e5,'2026-08-15','Awarded','Mobile app for last-mile riders.',['Rider app','Route list'],'SCN-004',2]]),
+bids:M(['id','pid','company','amount','tech','exp','team','time','status','months','comment'],[
+['BID-2026-001',1,'CodeBridge Systems',52e5,85,80,82,90,'Under Evaluation',9,''],['BID-2026-002',1,'Pinnacle Software Inc.',6e6,88,92,86,80,'Under Evaluation',8,''],
+['BID-2026-003',1,'DataForge PH',49e5,75,70,72,88,'Under Evaluation',10,''],['BID-2026-004',2,'WareTech Solutions',23e5,80,78,76,85,'Under Evaluation',6,''],
+['BID-2026-005',2,'StackWorks Inc.',245e4,0,0,0,0,'Pending Evaluation',7,''],['BID-2026-006',3,'TrackWise Labs',3e6,82,79,80,84,'Under Evaluation',6,''],
+['BID-2026-007',3,'ByteLogix',31e5,0,0,0,0,'Pending Evaluation',7,''],['BID-2026-008',1,'TechNova Solutions',575e4,92,88,90,85,'Under Evaluation',8,'Strong architecture plan.'],
+['BID-2026-009',5,'SwiftCode Labs',88e4,86,80,84,90,'Approved',3,'Approved by procurement.'],['BID-2026-010',4,'PortalWorks',17e5,0,0,0,0,'Pending Evaluation',5,'']]),
+orders:M(['id','client','service','bid','amount','date','status','provider','sku','qty','res'],[
+['ORD-2026-001','Metro Distribution Inc.','Last-Mile Delivery App','BID-2026-009',88e4,'2026-09-02','Confirmed','SwiftCode Labs','SCN-004',2,true],
+['ORD-2026-002','ABC Logistics','Freight: Manila to Davao','—',184e3,'2026-09-05','Processing','Meridian Fleet','PKG-001',300,true],
+['ORD-2026-003','NorthStar Warehousing','Warehouse pallet handling','—',96e3,'2026-09-10','Completed','Meridian Warehouse','PLT-002',40,true],
+['ORD-2026-004','Prime Freight Services','Delivery services (Cebu)','—',72500,'2026-09-15','Pending','Meridian Fleet','GPS-005',5,false],
+['ORD-2026-005','Metro Distribution Inc.','Freight: Batangas to Manila','—',121e3,'2026-09-18','Processing','Meridian Fleet','WRP-003',20,true]]),
+inv:M(['name','sku','cat','stock','res','re'],[['Packaging Box','PKG-001','Packaging',1200,300,500],['Pallet (Standard)','PLT-002','Handling',240,180,100],['Shrink Wrap Roll','WRP-003','Packaging',90,40,100],['Barcode Scanner','SCN-004','Equipment',35,10,10],['GPS Tracker Unit','GPS-005','Equipment',60,55,20],['Workstation Laptop','IT-001','IT Equipment',12,4,5],['Cargo Strap','CSR-007','Handling',0,0,50],['Delivery Box (Large)','BOX-008','Packaging',400,400,100]]),
+clients:M(['name','ind','contact','email','phone','addr','needs','rel','last'],[
+['ABC Logistics Corporation','Logistics','Maria Santos','maria@abclogistics.com','+63 917 555 0101','Makati City','System modernization, freight','Active','2026-09-05'],
+['Metro Distribution Inc.','Distribution','Jun Reyes','jun@metrodist.ph','+63 918 555 0102','Pasig City','Last-mile, portal','Active','2026-09-18'],
+['NorthStar Warehousing','Warehousing','Ana Cruz','ana@northstar.ph','+63 919 555 0103','Valenzuela City','Inventory system','Active','2026-09-10'],
+['Prime Freight Services','Freight','Carlo Lim','carlo@primefreight.ph','+63 920 555 0104','Cebu City','Fleet tracking','Prospect (referral)','2026-09-15'],
+['Harbor Foods Trading','Food Trading','Liza Tan','liza@harborfoods.ph','+63 921 555 0105','Davao City','Cold-chain delivery','Prospect (met in person)','—']]),
+services:M(['name','desc','price','avail','cat'],[['Freight & Transportation','Inter-island cargo and trucking','₱50,000 – ₱500,000','Available','Logistics'],['Warehouse Management','Storage, handling and cross-docking','₱30,000 – ₱300,000','Available','Logistics'],['Inventory Management','Stock control and cycle counting','₱25,000 – ₱200,000','Available','Logistics'],['Fleet Management','Vehicle scheduling and maintenance','₱40,000 – ₱250,000','Limited','Logistics'],['Delivery Services','Same-day and next-day delivery','₱150 – ₱5,000 per drop','Available','Logistics'],['System Development','Custom logistics software','₱800,000 – ₱4,000,000','Available','Digital'],['Legacy System Refactoring','Modernizing legacy platforms','₱2,000,000 – ₱8,000,000','Available','Digital'],['Digital Logistics Solutions','Portals, tracking and analytics','₱500,000 – ₱3,000,000','Limited','Digital']]),
+reqs:M(['id','from','subj','body','qty','date','est','sku','status'],[
+[1,'client@abclogistics.com','New Logistics Service Request','Hello, we would like to request transportation services for 500 packages from Manila to Cebu. Thank you.',500,'2026-10-20',185e3,'PKG-001','New'],
+[2,'jun@metrodist.ph','Pallet Delivery Quote','Please quote 60 pallets from Pasig to Batangas port.',60,'2026-10-12',98e3,'PLT-002','New'],
+[3,'ana@northstar.ph','Warehouse Restock Request','We need shrink wrap for a new client intake.',30,'2026-10-05',24e3,'WRP-003','New'],
+[4,'liza@harborfoods.ph','Cold-Chain Delivery Inquiry','Looking for Davao deliveries, 200 boxes weekly.',200,'2026-11-01',150e3,'BOX-008','New']]),
+log:[[3,'New bid submitted by TechNova Solutions'],[8,'Bid BID-2026-008 moved to Evaluation'],[14,'Evaluator updated technical score for BID-2026-002'],[22,'Stock reserved for Order ORD-2026-005'],[31,'New order request received from client@abclogistics.com'],[45,'Bid BID-2026-009 marked as Approved'],[60,'Order ORD-2026-003 completed'],[75,'Client Harbor Foods Trading added'],[90,'Inventory adjusted: Packaging Box +200'],[120,'Bidding opportunity opened: Legacy Logistics Management System Refactoring']].map(a=>({t:ago(a[0]),m:a[1]}))});
+/* ===== STATE / localStorage ===== */
+const KEY='logibid_v1',$=id=>document.getElementById(id),fm=n=>'₱'+Number(n).toLocaleString('en-PH');
+let S,cur='dash';
+try{S=JSON.parse(localStorage.getItem(KEY))}catch(e){}S=S||seed();
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
+function resetData(){if(confirm('Restore original sample data? Your changes will be lost.')){S=seed();save();applyTheme();toast('Demo data restored');go('dash')}}
+/* ===== UI COMPONENTS ===== */
+const BC={Open:'g',Approved:'g',Available:'g',Completed:'g',Recommended:'g',Confirmed:'g',Awarded:'g',Converted:'g',Active:'g',Pending:'a','Pending Evaluation':'a','Low Stock':'a','Closing Soon':'a',New:'a',Limited:'a',Rejected:'r',Cancelled:'r','Out of Stock':'r',Closed:'r'};
+const bd=s=>`<span class="bd ${BC[s]||'b'}">${s}</span>`;
+const tbl=(h,r)=>`<div class="tw"><table><tr>${h.map(x=>`<th>${x}</th>`).join('')}</tr>${r.map(x=>`<tr>${x.map(c=>`<td>${c}</td>`).join('')}</tr>`).join('')||'<tr><td>Nothing here yet.</td></tr>'}</table></div>`;
+function toast(m){const d=document.createElement('div');d.className='t';d.textContent=m;$('toasts').append(d);setTimeout(()=>d.remove(),3200)}
+const openM=h=>{$('md').innerHTML=h;$('ov').classList.add('on')},closeM=()=>$('ov').classList.remove('on');
+function formM(title,f,cb,btn='Save'){ // f: [name,label,type,required,value,options]
+ openM(`<h3>${title}</h3><form id="fm">${f.map(x=>`<label>${x[1]}${x[2]=='textarea'?`<textarea name="${x[0]}" rows="2" ${x[3]?'required':''}>${x[4]||''}</textarea>`:x[2]=='select'?`<select name="${x[0]}">${x[5].map(o=>`<option>${o}</option>`).join('')}</select>`:`<input name="${x[0]}" type="${x[2]}" ${x[3]?'required':''} value="${x[4]??''}" ${x[2]=='number'?'min="0" step="any"':''}>`}</label>`).join('')}<div class="act"><button type="button" class="btn g" onclick="closeM()">Cancel</button><button class="btn">${btn}</button></div></form>`);
+ $('fm').onsubmit=e=>{e.preventDefault();if(cb(Object.fromEntries(new FormData(e.target)))!==false)closeM()}}
+/* ===== ACTIVITY LOG ===== */
+const log=m=>{S.log.unshift({t:Date.now(),m});save()};
+const ft=t=>new Date(t).toLocaleString('en-PH',{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit',timeZone:'Asia/Manila'});
+/* ===== HELPERS ===== */
+const pst=p=>p.status=='Open'&&new Date(p.deadline)-Date.now()<30*864e5?'Closing Soon':p.status;
+const nb=p=>S.bids.filter(b=>b.pid==p.id).length,P=id=>S.projects.find(p=>p.id==id),B=id=>S.bids.find(b=>b.id==id),I=s=>S.inv.find(i=>i.sku==s);
+const ist=i=>i.stock==0?'Out of Stock':i.stock-i.res==0?'Reserved':i.stock-i.res<=i.re?'Low Stock':'Available';
+const price=b=>{const m=Math.min(...S.bids.filter(x=>x.pid==b.pid).map(x=>x.amount));return Math.round(m/b.amount*100)};
+const scored=b=>b.tech>0,overall=b=>scored(b)?(price(b)*.3+b.tech*.25+b.exp*.2+b.team*.15+b.time*.1).toFixed(1):'—';
+const dl=d=>new Date(d+'T00:00').toLocaleDateString('en-PH',{year:'numeric',month:'long',day:'numeric'});
+/* ===== NAVIGATION ===== */
+const NAV=[['dash','Dashboard'],['biddings','Open Biddings'],['eval','Bid Evaluation'],['orders','Orders'],['inv','Inventory'],['clients','Clients'],['services','Services'],['req','Order Requests'],['log','Activity Log'],['set','Settings']];
+function go(v){cur=v;$('sb').classList.remove('open');render()}
+function render(){$('nav').innerHTML=NAV.map(n=>`<a class="${n[0]==cur?'on':''}" onclick="go('${n[0]}')">${n[1]}</a>`).join('');
+ $('ttl').textContent=(NAV.find(n=>n[0]==cur)||[0,'Company Profile'])[1];$('c').innerHTML=V[cur]();window.scrollTo(0,0)}
+const V={};
+/* ===== DASHBOARD ===== */
+V.dash=()=>{const pe=S.bids.filter(b=>/Pending|Under/.test(b.status)).length,ao=S.orders.filter(o=>!/Completed|Cancelled/.test(o.status)).length;
+ const C=[['Active Open Biddings',S.projects.filter(p=>p.status=='Open').length],['Total Submitted Bids',S.bids.length],['Pending Evaluation',pe],['Approved Bids',S.bids.filter(b=>b.status=='Approved').length],['Active Orders',ao],['Available Stock (units)',S.inv.reduce((a,i)=>a+i.stock-i.res,0).toLocaleString()],['Pending Order Requests',S.reqs.filter(r=>r.status=='New').length]];
+ const mx=Math.max(1,...S.projects.map(nb));
+ return `<div class="card" style="margin-bottom:14px"><h3>Featured demo: ₱6,000,000 Legacy System Refactoring</h3><p class="mu" style="margin:0 0 10px">Open bidding is live. Follow the workflow below or start with the featured project.</p><button class="btn" onclick="viewP(1)">View Featured Bidding</button> <button class="btn g" onclick="subBid(1)">Submit a Bid</button></div>
+ <div class="grid">${C.map(c=>`<div class="card stat"><b>${c[1]}</b><span>${c[0]}</span></div>`).join('')}</div>
+ <div class="card" style="margin:14px 0"><h3>Open Bidding Workflow</h3><div class="wf">${['Opportunity created','Open','Providers submit bids','Pending Evaluation','Evaluator scores','Recommend / Approve','Approved bid becomes Order','Stock checked & reserved','Order processed','Completed'].map((s,i)=>(i?'<i>›</i>':'')+`<span>${s}</span>`).join('')}</div><p class="mu" style="margin:8px 0 0;font-size:12px">Every step is written to the Activity Log.</p></div>
+ <div class="grid g2"><div class="card"><h3>Sources of Truth</h3><div class="sot">Inventory: Current Stock</div><br><div class="sot">Bidding: Submitted Bid & Evaluation</div><br><div class="sot">Orders: Approved Order</div></div>
+ <div class="card"><h3>Bids per Project</h3>${S.projects.map(p=>`<div class="bar"><span style="width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${p.name}</span><div style="width:${nb(p)/mx*100}px"></div>${nb(p)}</div>`).join('')}</div>
+ <div class="card"><h3>Recent Bidding Activity</h3>${S.log.slice(0,5).map(l=>`<li class="lg">${l.m}<br><span class="mu">${ft(l.t)}</span></li>`).join('')}</div>
+ <div class="card"><h3>Recent Orders</h3>${S.orders.slice(-4).reverse().map(o=>`<li class="lg"><a style="cursor:pointer;color:var(--pr)" onclick="ordM('${o.id}')">${o.id}</a> ${o.service} ${bd(o.status)}</li>`).join('')}</div>
+ <div class="card"><h3>Stock Alerts</h3>${S.inv.filter(i=>/Low|Out|Reserved/.test(ist(i))).map(i=>`<li class="lg">${i.name} (${i.sku}) ${bd(ist(i))}</li>`).join('')||'<p class="mu">No alerts.</p>'}</div>
+ <div class="card"><h3>Upcoming Deadlines</h3>${S.projects.filter(p=>p.status=='Open').sort((a,b)=>a.deadline>b.deadline?1:-1).map(p=>`<li class="lg">${p.name}<br><span class="mu">${dl(p.deadline)}</span> ${bd(pst(p))}</li>`).join('')}</div></div>`};
+/* ===== BIDDING ===== */
+V.biddings=()=>`<div class="tools"><input id="q" placeholder="Search project name" oninput="$('bl').innerHTML=bl()"><select id="f" onchange="$('bl').innerHTML=bl()">${['All','Open','Closing Soon','Closed','Awarded'].map(x=>`<option>${x}</option>`).join('')}</select></div><div class="grid g2" id="bl">${bl()}</div>`;
+const bl=()=>{const q=($('q')?.value||'').toLowerCase(),f=$('f')?.value||'All';
+ return S.projects.filter(p=>p.name.toLowerCase().includes(q)&&(f=='All'||(f=='Closing Soon'?pst(p)==f:p.status==f))).map(p=>`<div class="card">${bd(pst(p))}<h3 style="margin-top:8px">${p.name}</h3><div class="mu">Client: ${p.client}</div><div>Budget: <b>${fm(p.budget)}</b> · Open Bidding</div><div class="mu">Deadline: ${dl(p.deadline)} · Bidders: ${nb(p)}</div><div class="sot">Source of Truth: Submitted Bid & Evaluation</div><div class="act" style="justify-content:flex-start"><button class="btn s g" onclick="viewP(${p.id})">View Details</button><button class="btn s" ${p.status=='Open'?'':'disabled'} onclick="subBid(${p.id})">Submit Bid</button></div></div>`).join('')||'<p class="mu">No biddings match. Clear the search or filter.</p>'};
+function viewP(id){const p=P(id);openM(`<h3>${p.name}</h3>${bd(pst(p))}<p>${p.desc}</p><p><b>Client:</b> ${p.client}<br><b>Project value:</b> ${fm(p.budget)}<br><b>Bidding method:</b> Open Bidding<br><b>Deadline:</b> ${dl(p.deadline)}<br><b>Bidders:</b> ${nb(p)}</p><b>Requirements / Scope of Work</b><ul class="l">${p.reqs.map(r=>`<li>${r}</li>`).join('')}</ul><p><b>Deliverables:</b> Working system, source code, documentation, test report, deployment plan.</p><b>Evaluation Criteria</b><p class="mu">Price 30% · Technical Approach 25% · Experience 20% · Team Capability 15% · Timeline 10%. The lowest price does not automatically win.</p><b>Current Bidders</b><ul class="l">${S.bids.filter(b=>b.pid==id).map(b=>`<li>${b.company}: ${fm(b.amount)} ${bd(b.status)}</li>`).join('')||'<li>No bids yet.</li>'}</ul><div class="act"><button class="btn g" onclick="closeM()">Close</button><button class="btn g" onclick="closeM();go('eval');$('ps').value=${id};$('ev').innerHTML=ev()">View Evaluation</button><button class="btn" ${p.status=='Open'?'':'disabled'} onclick="subBid(${id})">Submit Bid</button></div>`)}
+function subBid(pid){const p=P(pid);formM('Submit Bid: '+p.name,[['company','Company Name','text',1],['contact','Contact Person','text',1],['email','Email','email',1],['phone','Phone','tel',1],['amount','Bid Amount (₱)','number',1],['months','Estimated Completion (months)','number',1],['approach','Technical Approach','textarea',1],['exp','Company Experience','textarea',1],['team','Team Members','textarea',1],['notes','Additional Notes','textarea'],['file','Upload Proposal (simulated, stays in your browser)','file']],d=>{
+ if(!(+d.amount>0)){toast('Enter a bid amount greater than 0');return false}
+ const b={id:'BID-2026-'+String(S.bids.length+1).padStart(3,'0'),pid,company:d.company,amount:+d.amount,tech:0,exp:0,team:0,time:0,status:'Pending Evaluation',months:+d.months,comment:'',file:d.file&&d.file.name||'(no file)'};
+ S.bids.push(b);log(`New bid submitted by ${b.company} (${b.id}) for ${p.name}`);save();toast('Bid submitted: status Pending Evaluation');render()},'Submit Bid')}
+/* ===== EVALUATION ===== */
+V.eval=()=>`<div class="tools"><select id="ps" onchange="$('ev').innerHTML=ev()">${S.projects.map(p=>`<option value="${p.id}">${p.name}</option>`).join('')}</select><span class="sp"></span><span class="sot">Source of Truth: Submitted Bid & Evaluation</span></div><div class="card" id="ev">${ev()}</div>`;
+const ev=()=>{const pid=+($('ps')?.value||1),bs=S.bids.filter(b=>b.pid==pid).sort((a,b)=>(+overall(b)||0)-(+overall(a)||0));
+ return `<p class="mu">Weights: Price 30% · Technical 25% · Experience 20% · Team 15% · Timeline 10%. Scores are inputs for the evaluator; the system never selects a winner on its own.</p>`+tbl(['Bid','Company','Amount','Price','Tech','Exp','Team','Timeline','Overall','Status','Action'],bs.map(b=>[b.id,b.company,fm(b.amount),price(b),b.tech||'—',b.exp||'—',b.team||'—',b.time||'—','<b>'+overall(b)+'</b>',bd(b.status),`<button class="btn s g" onclick="evalB('${b.id}')">Evaluate</button> ${b.status=='Approved'&&!S.orders.some(o=>o.bid==b.id)?`<button class="btn s" onclick="mkOrder('${b.id}')">Create Order</button>`:''}`]))};
+function evalB(id){const b=B(id);formM(`Evaluate ${b.company} (${b.id})`,[['tech','Technical Approach (0-100)','number',1,b.tech],['exp','Experience (0-100)','number',1,b.exp],['team','Team Capability (0-100)','number',1,b.team],['time','Timeline (0-100)','number',1,b.time],['comment','Evaluator Comments','textarea',0,b.comment],['st','Decision','select',0,'',['Under Evaluation','Pending','Recommended','Rejected','Approved']]],d=>{
+ const v=[d.tech,d.exp,d.team,d.time].map(Number);if(v.some(x=>x<0||x>100||isNaN(x))){toast('Scores must be between 0 and 100');return false}
+ if(d.st=='Approved'){if(S.bids.some(x=>x.pid==b.pid&&x.status=='Approved'&&x.id!=b.id)){toast('Another bid is already approved for this project');return false}if(!confirm(`Approve ${b.company} as Selected Provider for ${fm(b.amount)}?`))return false}
+ [b.tech,b.exp,b.team,b.time]=v;b.comment=d.comment;b.status=d.st=='Pending'?'Pending Evaluation':d.st;
+ log(`Evaluator updated scores for ${b.id} (${b.company}); status: ${b.status}`);
+ if(b.status=='Approved'){P(b.pid).status='Awarded';log(`Bid ${b.id} approved. Project awarded to ${b.company}`)}save();toast('Evaluation saved');render();$('ps').value=b.pid;$('ev').innerHTML=ev()},'Save Evaluation')}
+/* ===== ORDERS ===== */
+const nextOid=()=>'ORD-2026-'+String(S.orders.length+1).padStart(3,'0');
+function reserve(o){const i=I(o.sku);if(!i)return toast('Item not found');if(i.stock-i.res>=o.qty){i.res+=o.qty;o.res=true;log(`Stock reserved for Order ${o.id}: ${o.qty} x ${i.name}`);save();return true}toast(`Only ${i.stock-i.res} ${i.name} available; need ${o.qty}`);return false}
+function mkOrder(bid){const b=B(bid),p=P(b.pid);if(S.orders.some(o=>o.bid==bid))return toast('Order already exists');
+ const o={id:nextOid(),client:p.client,service:p.name,bid:b.id,amount:b.amount,date:new Date().toISOString().slice(0,10),status:'Pending',provider:b.company,sku:p.sku,qty:p.qty,res:false};S.orders.push(o);
+ log(`Approved bid ${b.id} converted to Order ${o.id}`);save();const ok=reserve(o);toast(ok?`Order ${o.id} created; stock reserved`:`Order ${o.id} created; stock not reserved`);go('orders');ordM(o.id)}
+V.orders=()=>`<div class="tools"><button class="btn" onclick="newOrd()">New Order</button><span class="sp"></span><span class="sot">Source of Truth: Approved Order</span></div><div class="card">${tbl(['Order ID','Client','Service','Bid Ref','Amount','Date','Status','Provider','Stock Requirement',''],S.orders.map(o=>[o.id,o.client,o.service,o.bid,fm(o.amount),o.date,bd(o.status),o.provider,`${o.qty} x ${o.sku} ${o.res?'(reserved)':'(not reserved)'}`,`<button class="btn s g" onclick="ordM('${o.id}')">Open</button>`]))}</div>`;
+function newOrd(){formM('New Order',[['client','Client','text',1],['service','Service','text',1],['amount','Amount (₱)','number',1],['sku','Stock item','select',0,'',S.inv.map(i=>i.sku)],['qty','Quantity','number',1,1]],d=>{const o={id:nextOid(),client:d.client,service:d.service,bid:'—',amount:+d.amount,date:new Date().toISOString().slice(0,10),status:'Pending',provider:'Meridian Logistics',sku:d.sku,qty:+d.qty,res:false};S.orders.push(o);log(`Order ${o.id} created for ${o.client}`);save();toast('Order created');render()})}
+function ordM(id){const o=S.orders.find(x=>x.id==id),i=I(o.sku);openM(`<h3>${o.id}</h3>${bd(o.status)}<p><b>Client:</b> ${o.client}<br><b>Service:</b> ${o.service}<br><b>Bid reference:</b> ${o.bid}<br><b>Amount:</b> ${fm(o.amount)}<br><b>Date:</b> ${o.date}<br><b>Assigned provider:</b> ${o.provider}</p><div class="sot">Source of Truth: Approved Order</div><p><b>Stock check:</b> ${o.qty} x ${i?i.name:o.sku}. Available now: ${i?i.stock-i.res:'?'} · Reserved for this order: ${o.res?'Yes':'No'}</p><label>Update status<select id="os">${['Pending','Confirmed','Processing','Completed','Cancelled'].map(s=>`<option ${s==o.status?'selected':''}>${s}</option>`).join('')}</select></label><div class="act"><button class="btn g" onclick="closeM()">Close</button>${o.res?`<button class="btn g" onclick="relOrd('${o.id}')">Release Stock</button>`:`<button class="btn g" onclick="if(reserve(S.orders.find(x=>x.id=='${o.id}')))ordM('${o.id}')">Reserve Stock</button>`}<button class="btn" onclick="setOs('${o.id}')">Save Status</button></div>`)}
+function setOs(id){const o=S.orders.find(x=>x.id==id);o.status=$('os').value;log(`Order ${id} status set to ${o.status}`);save();toast('Order updated');closeM();render()}
+function relOrd(id){const o=S.orders.find(x=>x.id==id);I(o.sku).res-=o.qty;o.res=false;log(`Stock released for Order ${id}`);save();toast('Stock released');closeM();render()}
+/* ===== INVENTORY ===== */
+V.inv=()=>`<div class="tools"><button class="btn" onclick="addItem()">Add Item</button><span class="sp"></span><span class="sot">Source of Truth: Current Stock</span></div><div class="card"><p class="mu" style="margin-top:0">Inventory / Stock Management is the authoritative record for stock availability.</p>${tbl(['Item','SKU','Category','Current Stock','Reserved','Available','Reorder Level','Status','Actions'],S.inv.map(i=>[i.name,i.sku,i.cat,i.stock.toLocaleString(),i.res.toLocaleString(),(i.stock-i.res).toLocaleString(),i.re,bd(ist(i)),['add','remove','reserve','release'].map(a=>`<button class="btn s g" onclick="stockOp('${i.sku}','${a}')">${a[0].toUpperCase()+a.slice(1)}</button>`).join(' ')]))}</div>`;
+function addItem(){formM('Add Inventory Item',[['name','Item','text',1],['sku','SKU','text',1],['cat','Category','text',1],['stock','Opening Stock','number',1,0],['re','Reorder Level','number',1,10]],d=>{if(I(d.sku)){toast('SKU already exists');return false}S.inv.push({name:d.name,sku:d.sku,cat:d.cat,stock:+d.stock,res:0,re:+d.re});log(`Inventory item added: ${d.name} (${d.sku})`);save();toast('Item added');render()})}
+function stockOp(sku,a){const i=I(sku);formM(`${a[0].toUpperCase()+a.slice(1)} stock: ${i.name}`,[['q','Quantity','number',1,1]],d=>{const q=+d.q;if(!(q>0)){toast('Enter a quantity above 0');return false}
+ if(a=='add')i.stock+=q;else if(a=='remove'){if(i.stock-q<i.res){toast('Cannot remove reserved stock. Release it first');return false}i.stock-=q}
+ else if(a=='reserve'){if(q>i.stock-i.res){toast('Not enough available stock');return false}i.res+=q}
+ else{if(q>i.res){toast('Cannot release more than reserved');return false}i.res-=q}
+ log(`Inventory ${a}: ${q} x ${i.name} (now ${i.stock} in stock, ${i.res} reserved)`);save();toast('Stock updated');render()})}
+/* ===== CLIENTS ===== */
+V.clients=()=>`<div class="tools"><button class="btn" onclick="addClient()">Add Client</button><span class="sp"></span><span class="mu">Replaces face-to-face and word-of-mouth contact tracking</span></div><div class="card">${tbl(['Company','Industry','Contact','Email','Phone','Address','Services Needed','Relationship','Last Transaction'],S.clients.map(c=>[c.name,c.ind,c.contact,c.email,c.phone,c.addr,c.needs,bd(c.rel.split(' (')[0])+(c.rel.includes('(')?' <span class="mu">'+c.rel.match(/\((.*)\)/)[1]+'</span>':''),c.last]))}</div>`;
+function addClient(){formM('Add Client',[['name','Company Name','text',1],['ind','Industry','text',1],['contact','Contact Person','text',1],['email','Email','email',1],['phone','Phone','tel'],['addr','Business Address','text'],['needs','Services Needed','text'],['rel','Relationship Status','select',0,'',['Prospect','Active']]],d=>{S.clients.push({...d,last:'—'});log(`Client added: ${d.name}`);save();toast('Client added');render()})}
+/* ===== SERVICES / PROFILE ===== */
+V.services=()=>`<div class="grid g2">${S.services.map(s=>`<div class="card"><h3>${s.name}</h3><p class="mu" style="margin:0 0 8px">${s.desc}</p><b>${s.price}</b><br>${bd(s.avail)} <span class="mu">${s.cat}</span></div>`).join('')}</div>`;
+V.profile=()=>{const c=S.co;return `<div class="card" style="max-width:640px"><div style="width:64px;height:64px;border-radius:12px;background:var(--pr);color:#fff;font:800 26px/64px sans-serif;text-align:center">ML</div><h2>${c.name}</h2><p>${c.desc}</p><p>${c.addr}<br>${c.email} · ${c.phone}<br>${c.web}</p><b>Services</b><ul class="l">${S.services.map(s=>`<li>${s.name}</li>`).join('')}</ul><p class="mu">Digital version of the traditional business card introduction.</p><button class="btn" onclick="try{navigator.clipboard.writeText('https://${c.web}')}catch(e){}toast('Company profile link copied.')">Share Company Profile</button></div>`};
+/* ===== GMAIL SIMULATION ===== */
+V.req=()=>`<div class="tools"><span class="bd a">SIMULATION: Gmail Integration</span><span class="mu">No real Gmail connection. Sample emails only.</span></div><div class="grid g2">${S.reqs.map(r=>`<div class="card">${bd(r.status)}<h3 style="margin-top:8px">${r.subj}</h3><div class="mu">From: ${r.from}</div><p>${r.body}</p><div>Quantity: <b>${r.qty}</b> · Requested date: ${r.date}</div><div class="act" style="justify-content:flex-start"><button class="btn s" ${r.status=='New'?'':'disabled'} onclick="conv(${r.id})">Convert to Order Request</button></div></div>`).join('')}</div>`;
+function conv(id){const r=S.reqs.find(x=>x.id==id),o={id:nextOid(),client:r.from,service:r.subj,bid:'—',amount:r.est,date:new Date().toISOString().slice(0,10),status:'Pending',provider:'Meridian Logistics',sku:r.sku,qty:r.qty,res:false};
+ S.orders.push(o);r.status='Converted';log(`Email request from ${r.from} converted to order request ${o.id}`);save();toast(`Order request ${o.id} created (Pending)`);render()}
+/* ===== LOG / SETTINGS ===== */
+V.log=()=>`<div class="card">${S.log.map(l=>`<li class="lg"><b>${ft(l.t)}</b> ${l.m}</li>`).join('')}</div>`;
+V.set=()=>`<div class="grid g2"><div class="card"><h3>Company Information</h3><label>Name<input id="s1" value="${S.co.name}"></label><label>Email<input id="s2" value="${S.co.email}"></label><label>Phone<input id="s3" value="${S.co.phone}"></label><button class="btn" onclick="S.co.name=$('s1').value;S.co.email=$('s2').value;S.co.phone=$('s3').value;save();toast('Settings saved')">Save changes</button></div>
+<div class="card"><h3>System</h3><p>Currency: PHP (₱)<br>Timezone: Asia/Manila</p><p>Default criteria: Price 30 · Technical 25 · Experience 20 · Team 15 · Timeline 10<br>Inventory: low stock when available ≤ reorder level<br>Notifications: on-screen toasts</p><button class="btn g" onclick="theme()">Switch Light / Dark</button> <button class="btn r" onclick="resetData()">Reset Demo Data</button></div></div>`;
+/* ===== THEME / ONLINE / INIT ===== */
+function applyTheme(){document.documentElement.dataset.theme=S.theme}
+function theme(){S.theme=S.theme=='dark'?'light':'dark';save();applyTheme()}
+function net(){const on=navigator.onLine;$('net').className=on?'':'off';$('nt').textContent=on?'ONLINE':'OFFLINE';$('nx').textContent='Offline mode enabled: local browser data is being used.'}
+addEventListener('online',net);addEventListener('offline',net);
+document.addEventListener('keydown',e=>{if(e.key=='Escape')closeM()});
+applyTheme();net();render();
+</script></body></html>
